@@ -15,4 +15,5 @@ func main() {
 			module1.Alg2time(n, m)
 		}
 	}
+	fmt.Println("What's wrong?")
 }
