@@ -17,7 +17,6 @@ func Summ() {
 	line = strings.TrimSuffix(line, "\n")
 	line = strings.TrimSuffix(line, "\r")
 	arr := strings.Split(line, " ")
-
 	a, _ := strconv.Atoi(arr[0])
 	b, _ := strconv.Atoi(arr[1])
 	summ := a + b
