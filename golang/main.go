@@ -26,5 +26,5 @@ func main() {
 			}
 		}
 	}
-	module1.Bubblesort()
+	module1.Mergesort()
 }

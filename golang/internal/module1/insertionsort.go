@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func Bubblesort() {
+func Insertionsort() {
 	reader := bufio.NewReader(os.Stdin)
 	arrlen, err := reader.ReadString('\n')
 	if err != nil {
@@ -21,24 +21,18 @@ func Bubblesort() {
 		return
 	}
 	var arr []int
-	for i := 0; i < len(strarr); i++ {
-		inti, _ := strconv.Atoi(strarr[i])
+	for k := 0; k < len(strarr); k++ {
+		inti, _ := strconv.Atoi(strarr[k])
 		arr = append(arr, inti)
 	}
-	nopermutation := true
-	for j := 0; j < len(arr)-1; j++ {
-		for k := 0; k < len(arr)-j-1; k++ {
-			if arr[k] > arr[k+1] {
-				arr[k], arr[k+1] = arr[k+1], arr[k]
-				for l := 0; l < len(arr)-1; l++ {
-					fmt.Print(strconv.Itoa(arr[l]) + " ")
-				}
-				fmt.Println(arr[len(arr)-1])
-				nopermutation = false
-			}
+	fmt.Println(arr)
+	for i := 1; i < len(arr); i++ {
+		j, x := i-1, arr[i]
+		for j >= 0 && arr[j] > x {
+			arr[j+1] = arr[j]
+			j = j - 1
 		}
+		arr[j+1] = x
 	}
-	if nopermutation {
-		fmt.Println(0)
-	}
+	fmt.Println(arr)
 }
