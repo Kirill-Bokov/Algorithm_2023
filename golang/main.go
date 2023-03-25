@@ -27,5 +27,5 @@ func main() {
 			}
 		}
 	}
-	module2.Mergesort()
+	module2.Warehouse()
 }
