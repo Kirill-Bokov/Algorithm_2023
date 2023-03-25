@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/Kirill-Bokov/Algorithm_2023/golang/internal/module1"
+	"github.com/Kirill-Bokov/Algorithm_2023/golang/internal/module2"
 )
 
 func main() {
@@ -26,5 +27,5 @@ func main() {
 			}
 		}
 	}
-	module1.Mergesort()
+	module2.Mergesort()
 }
