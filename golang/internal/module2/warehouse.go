@@ -2,60 +2,50 @@ package module2
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
 )
 
 func Warehouse() {
-	reader := bufio.NewReader(os.Stdin)
-	arrlen1, err := reader.ReadString('\n')
-	if err != nil {
-		panic(err)
+	output, _ := os.OpenFile("output.txt", os.O_APPEND|os.O_TRUNC|os.O_CREATE, 0644)
+	input, _ := os.OpenFile("input.txt", os.O_RDONLY, 0666)
+	defer input.Close()
+	reader := bufio.NewReader(input)
+	var line []string
+	for {
+		str, err := reader.ReadString('\n')
+		if err != nil {
+			break
+		}
+		line = append(line, str)
 	}
-	intarrlen1, _ := strconv.Atoi(strings.TrimSuffix(strings.TrimSuffix(arrlen1, "\n"), "\r"))
-	if intarrlen1 > 100 || intarrlen1 < 1 {
-		return
-	}
-	line1, err := reader.ReadString('\n')
-	strarr1 := strings.Split(strings.TrimSuffix(strings.TrimSuffix(line1, "\n"), "\r"), " ")
+	strgoods := strings.Split(strings.TrimSuffix(strings.TrimSuffix(line[1], "\n"), "\r"), " ")
 	var goods []int
-	for i := 0; i < len(strarr1); i++ {
-		inti, _ := strconv.Atoi(strarr1[i])
-		goods = append(goods, inti)
+	var good int
+	for i := 0; i < len(strgoods); i++ {
+		good, _ = strconv.Atoi(strgoods[i])
+		goods = append(goods, good)
 	}
-	if (len(goods) != intarrlen1) || intarrlen1 > 10000 || intarrlen1 < 1 {
-		return
+	strorders := strings.Split(strings.TrimSuffix(strings.TrimSuffix(line[3], "\n"), "\r"), " ")
+	orders := make([]int, len(strorders))
+	for i, order := range strorders {
+		num, _ := strconv.Atoi(order)
+		orders[i] = num
 	}
-	arrlen2, err := reader.ReadString('\n')
-	intarrlen2, _ := strconv.Atoi(strings.TrimSuffix(strings.TrimSuffix(arrlen2, "\n"), "\r"))
-	line2, err := reader.ReadString('\n')
-	strarr2 := strings.Split(strings.TrimSuffix(strings.TrimSuffix(line2, "\n"), "\r"), " ")
-	var orders []int
-	for i := 0; i < len(strarr2); i++ {
-		inti, _ := strconv.Atoi(strarr2[i])
-		orders = append(orders, inti)
-	}
-	if (len(orders) != intarrlen2) || intarrlen2 > 10000 || intarrlen2 < 1 {
-		return
-	}
-	for j := 0; j < len(orders)-1; j++ {
+	for j := 0; j < len(orders); j++ {
 		for k := 0; k < len(orders)-j-1; k++ {
 			if orders[k] > orders[k+1] {
 				orders[k], orders[k+1] = orders[k+1], orders[k]
 			}
 		}
 	}
-	if orders[0] < 1 || orders[len(orders)-1] > intarrlen1 {
-		return
-	}
 	orders = orderSort(orders, orders[len(orders)-1])
 	for index, value := range goods {
 		if value < orders[index] {
-			fmt.Println("yes")
+			output.WriteString("yes\n")
 		} else {
-			fmt.Println("no")
+			output.WriteString("no\n")
 		}
 	}
 }
