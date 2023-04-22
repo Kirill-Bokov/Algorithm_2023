@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/Kirill-Bokov/Algorithm_2023/golang/internal/module1"
-	"github.com/Kirill-Bokov/Algorithm_2023/golang/internal/module2"
+	"github.com/Kirill-Bokov/Algorithm_2023/golang/internal/module3"
 )
 
 func main() {
@@ -27,5 +27,5 @@ func main() {
 			}
 		}
 	}
-	module2.Warehouse()
+	module3.Substring()
 }

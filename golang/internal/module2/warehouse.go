@@ -8,8 +8,8 @@ import (
 )
 
 func Warehouse() {
-	output, _ := os.OpenFile("output.txt", os.O_APPEND|os.O_TRUNC|os.O_CREATE, 0644)
 	input, _ := os.OpenFile("input.txt", os.O_RDONLY, 0666)
+	_, _ = input.WriteString("\n")
 	defer input.Close()
 	reader := bufio.NewReader(input)
 	var line []string
@@ -41,12 +41,22 @@ func Warehouse() {
 		}
 	}
 	orders = orderSort(orders, orders[len(orders)-1])
+	output, _ := os.OpenFile("output.txt", os.O_APPEND|os.O_TRUNC|os.O_CREATE, 0644)
 	for index, value := range goods {
-		if value < orders[index] {
-			output.WriteString("yes\n")
+		if index == len(goods)-1 {
+			if value < orders[index] {
+				output.WriteString("yes")
+			} else {
+				output.WriteString("no")
+			}
 		} else {
-			output.WriteString("no\n")
+			if value < orders[index] {
+				output.WriteString("yes\n")
+			} else {
+				output.WriteString("no\n")
+			}
 		}
+
 	}
 }
 
